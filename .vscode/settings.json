@@ -1,0 +1,7 @@
+{
+  "docwriter.style": "JSDoc",
+  "docwriter.progress.trackTypes": true,
+  "files.watcherExclude": {
+    "**/target": true
+  }
+}
