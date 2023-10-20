@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CreateProduct from './pages/CreateProduct'
 
 import { BrowserRouter  , Routes , Route  } from 'react-router-dom';
+import Products from './pages/Products';
 
 function App() {  
   return (
@@ -11,6 +12,8 @@ function App() {
       <Routes>
 
         <Route path='/create' Component={CreateProduct}/>
+        <Route path='/Products' Component={Products}/>
+
 
 
       </Routes>

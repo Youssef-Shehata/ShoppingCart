@@ -21,9 +21,18 @@ import axios from 'axios'
 
   const formSubmit = async(e)=>{
     e.preventDefault()
-    await axios.post('http://localhost:8080/createproduct',data)
-    setData(DEFAULT_FORM_VALUE)
-    console.log('operation successful')
+    if(data.name !== "" , data.cost!==0){
+      await axios.post('http://localhost:8080/products',data)
+      setData(DEFAULT_FORM_VALUE)
+      console.log('operation successful')
+    }else{
+      setData({
+        ...data,
+        name:"name is required!"
+      })
+      return false
+    }
+    
   }
   
   return (

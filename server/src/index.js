@@ -4,6 +4,9 @@ const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const connectDB = require('../db/connect')
 const {createProduct} = require('./controllers/createProduct')
+const {getProductsController} = require('./controllers/getProductsController')
+
+
 const url = process.env.MONGO_URI
 
 
@@ -15,7 +18,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.post('/createproduct' , createProduct)
+app.post('/products' , createProduct)
+app.get('/products' , getProductsController)
 
 
 
