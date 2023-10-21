@@ -5,23 +5,33 @@ import CreateProduct from './pages/CreateProduct'
 
 import { BrowserRouter  , Routes , Route  } from 'react-router-dom';
 import Products from './pages/Products';
+import React, { useState } from 'react';
+import { Header } from './components/Header';
+export const shoppingCartContext =React.createContext()
+
 
 function App() {  
+  const cartState = useState([])  
   return (
-    <BrowserRouter>
-      <Routes>
+    <div className="App">
+    <shoppingCartContext.Provider  value={cartState}>
+      <Header/>
+      <BrowserRouter>
 
-        <Route path='/create' Component={CreateProduct}/>
-        <Route path='/Products' Component={Products}/>
+        <Routes>
+
+          <Route path='/create' Component={CreateProduct}/>
+          <Route path='/Products' Component={Products}/>
 
 
 
-      </Routes>
+        </Routes>
 
 
 
-    </BrowserRouter>
-
+      </BrowserRouter>
+    </shoppingCartContext.Provider>
+    </div>
   );
 }
 

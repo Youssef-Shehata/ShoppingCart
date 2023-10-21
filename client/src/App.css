@@ -1,5 +1,9 @@
+
 .App {
+  
+  padding: 2px;
   text-align: center;
+  background-color: #262e3c;
 }
 
 .App-logo {
@@ -23,10 +27,26 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.title{
+  font-weight:700;
+}
 .App-link {
   color: #61dafb;
 }
+.butt {
+  display: inline-flex;
+  margin: 4px;
+  width: 200px;
+}
+.description {
+  max-width: 14em; /* Set the maximum height to show one line */
+  max-height: 1.2em; /* Set the maximum height to show one line */
+  
+  padding: 20px 5px;
+
+  overflow: hidden; /* Hide the overflow content */
+}
+
 
 @keyframes App-logo-spin {
   from {
