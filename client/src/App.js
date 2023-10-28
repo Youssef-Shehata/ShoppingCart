@@ -8,6 +8,7 @@ import {Products} from './pages/Products';
 import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Cart } from './pages/Cart';
+import RegisterPage from './pages/RegisterPage';
 export const shoppingCartContext =React.createContext()
 
 
@@ -24,6 +25,8 @@ function App() {
         
           <Route path='/create' Component={CreateProduct}/>
           <Route path='/Products' Component={Products}/>
+          <Route path='/register' Component={RegisterPage}/>
+
 
 
 

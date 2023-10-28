@@ -3,7 +3,11 @@
 .App {
   height: 100%;
   width: 100%;
-  background-color: #262e3c;
+  background-color: #33425e;
+  display: grid;
+  position: absolute;
+  align-content:baseline;
+  
 }
 
 .butt {
