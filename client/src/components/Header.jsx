@@ -2,25 +2,27 @@ import React, { useContext } from "react"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { shoppingCartContext } from "../App";
+import { Link } from "react-router-dom";
 
 export const Header = ()=>{
-  const [cart] = useContext(shoppingCartContext  )
   return(
     <div>
-      <Navbar expand="lg"   data-bs-theme="light" className="bg-body-tertiary">
+      <Navbar expand="lg" mb="2px"  data-bs-theme="light" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to={"/products"}>
+            Home
+          </Link>
+        </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+          <Link  to={"/Cart"}>
+            Cart
+          </Link>
            </Nav>
-           <Nav className="me-auto" >
-           Items in Cart {cart.length}
 
-           </Nav>
 
         </Navbar.Collapse>
       </Container>

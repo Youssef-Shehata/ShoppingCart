@@ -1,6 +1,6 @@
 import axios from "axios"
-import { useContext, useEffect, useState } from "react"
-import { Container , Card, Button,Col,Row, CardGroup} from 'react-bootstrap';
+import { useContext, useDeferredValue, useEffect, useState } from "react"
+import {   Card, Button,Col,Row, CardGroup,Form,Toast, ToastContainer} from 'react-bootstrap';
 import '../App.css';
 import { shoppingCartContext } from "../App";
 
@@ -9,7 +9,7 @@ const ProductCard = ({product , addToCart})=>{
 
 
   const learnMore= () => {
-    if (learnMoreState =="Learn More") {
+    if (learnMoreState ==="Learn More") {
       setLearnMoreState('Show Less');
     } else {
       setLearnMoreState('Learn More');
@@ -17,10 +17,10 @@ const ProductCard = ({product , addToCart})=>{
     }
   };
   return (
-    <div key={product._id}>
-    <Card className="flex-fill" text="light" bg="dark" style={{ display:"grid" , minWidth:"280px",minHeight:"300px", margin :"100px" , alignItems:"center"}}>
-      {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-      <Card.Body>
+    
+    <Card key={product._id} className="flex-fill mb-8 mt-4" text="light" bg="dark" >
+      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Body >
         <Card.Title className="title" >{product.name}</Card.Title>
         <Card.Text className="description">
         {product.description}
@@ -30,16 +30,37 @@ const ProductCard = ({product , addToCart})=>{
         <Button  className="butt" variant="outline-light" size="lg"onClick={()=>addToCart(product)}>Add To Cart</Button>
       </Card.Body>
       </Card>
-      </div>
+
   )
 }  
-function Products() {
+export const Products = () => {
   const [products , setProducts] = useState([])
+  const [showToast, setShowToast] = useState(false);
+
   const [cart , setCart] = useContext(shoppingCartContext)
+  const [searchQueryState , setSearchQueryState] = useState('')
+  // const visibleQuery = useDeferredValue(searchQueryState)
 
   const addToCart =(product)=>{
-    setCart([...cart, product])
+    setCart([...cart, {...product}])
+    setShowToast(true)
   }
+
+  const handleSearch = (e)=>{
+    setSearchQueryState(e.currentTarget.value)  
+
+  }
+
+
+  const getFilteredProducts = (products)=>{
+    return products.filter(  (prod)=>{
+      return prod.name.includes(searchQueryState)
+      }
+      )
+  } 
+
+    
+
 
   useEffect(() => {
     async function fetchdata() {
@@ -53,19 +74,62 @@ function Products() {
 
  
 return(
-    <div>
-      <CardGroup fluid="md">
+  <div>
+    <ToastContainer
+      className="p-3"
+      position={"top-center"}
+      style={{ zIndex: 1 }}
+    >
+      <Toast 
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={1000} autohide
+        bg="light"
+       
+        
+        >
+
+        <Toast.Header closeButton={false}>
+          <img
+            src="holder.js/20x20?text=%20"
+            className="rounded me-2"
+            alt=""
+          />
+          <strong className="me-auto">Cart</strong>
+          <small>1 sec ago</small>
+        </Toast.Header>
+        <Toast.Body>Product Added Scuccesfully!</Toast.Body>
+      </Toast>
+    </ToastContainer>
+    
+    <CardGroup >
+      <Row 
+        lg={1} 
+        style={{minWidth:"100vw",marginLeft:"3px "}}
+        >
+        <Col>
+        
+        <Form.Control 
+        className="mb-2  mt-3 " 
+        size="lg"
+        type="text" 
+        placeholder="Enter a products name"
+        value={searchQueryState}
+        onChange={handleSearch}
+        />
+
+        </Col>
+        </Row>
       <Row lg={4}>
-     
-            {products.map((product)=>(    
-              <Col className="d-flex">          
-            <ProductCard product={product} addToCart={addToCart}/>
-            </Col>
-            ))}
-          
-        </Row> 
-      </CardGroup>
-    </div>
-  )
+
+          {getFilteredProducts(products).map((product)=>(    
+            <Col className="d-flex">          
+          <ProductCard product={product} addToCart={addToCart}/>
+          </Col>
+          ))}
+
+      </Row> 
+    </CardGroup>
+  </div>
+)
 }
-export default Products
